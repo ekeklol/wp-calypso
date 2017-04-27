@@ -16,19 +16,13 @@ import { renderWithReduxStore } from 'lib/react-helpers';
 import route from 'lib/route';
 import { sectionify } from 'lib/route/path';
 import SiteSettingsComponent from 'my-sites/site-settings/main';
-import sitesFactory from 'lib/sites-list';
 import StartOver from './start-over';
 import ThemeSetup from './theme-setup';
 import { setDocumentHeadTitle as setTitle } from 'state/document-head/actions';
 import titlecase from 'to-title-case';
-import { getSelectedSite, getSelectedSiteId } from 'state/ui/selectors';
+import { getSelectedSite, getSelectedSiteId, getSelectedSiteSlug } from 'state/ui/selectors';
 import { isJetpackSite } from 'state/sites/selectors';
 import { canCurrentUser } from 'state/selectors';
-
-/**
- * Module vars
- */
-const sites = sitesFactory();
 
 function canDeleteSite( site ) {
 	if ( ! site.capabilities || ! site.capabilities.manage_options ) {
@@ -118,24 +112,16 @@ module.exports = {
 	},
 
 	deleteSite( context ) {
-		let site = sites.getSelectedSite();
+		const site = getSelectedSite( context.store.getState() );
+		const siteSlug = getSelectedSiteSlug( context.store.getState() );
 
-		if ( sites.initialized ) {
-			if ( ! canDeleteSite( site ) ) {
-				return page( '/settings/general/' + site.slug );
-			}
-		} else {
-			sites.once( 'change', function() {
-				site = sites.getSelectedSite();
-				if ( ! canDeleteSite( site ) ) {
-					return page( '/settings/general/' + site.slug );
-				}
-			} );
+		if ( site && ! canDeleteSite( site ) ) {
+			return page( '/settings/general' + siteSlug );
 		}
 
 		renderPage(
 			context,
-			<DeleteSite sites={ sites } path={ context.path } />
+			<DeleteSite path={ context.path } />
 		);
 	},
 
