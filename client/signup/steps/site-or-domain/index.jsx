@@ -2,6 +2,7 @@
  * External dependencies
  */
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 /**
  * Internal dependencies
@@ -11,13 +12,14 @@ import { tlds } from 'lib/domains/constants';
 import StepWrapper from 'signup/step-wrapper';
 import SignupActions from 'lib/signup/actions';
 import SiteOrDomainChoice from './choice';
+import { getCurrentUserId } from 'state/current-user/selectors';
 // TODO: `design-type-with-store`, `design-type`, and this component could be refactored to reduce redundancy
 import DomainImage from 'signup/steps/design-type-with-store/domain-image';
 import NewSiteImage from 'signup/steps/design-type-with-store/new-site-image';
 import { externalRedirect } from 'lib/route/path';
 import NavigationLink from 'signup/navigation-link';
 
-export default class SiteOrDomain extends Component {
+class SiteOrDomain extends Component {
 	componentWillMount() {
 		if ( ! this.getDomainName() ) {
 			// /domains domain search is an external application to calypso,
@@ -50,20 +52,35 @@ export default class SiteOrDomain extends Component {
 	}
 
 	getChoices() {
-		return [
+		const choices = [
 			{
 				type: 'page',
 				label: 'New site',
 				image: <NewSiteImage />,
 				description: 'Choose a theme, customize, and launch your site. Free domain included with all plans.'
-			},
+			}
+		];
+
+		if ( this.props.isLoggedIn ) {
+			choices.push(
+				{
+					type: 'existing-site',
+					label: 'Link to an existing site',
+					image: <NewSiteImage />
+				}
+			);
+		}
+
+		choices.push(
 			{
 				type: 'domain',
 				label: 'Just buy a domain',
 				image: <DomainImage />,
 				description: 'Show a "coming soon" notice on your domain. Add a site later.'
-			},
-		];
+			}
+		);
+
+		return choices;
 	}
 
 	renderChoices() {
@@ -150,3 +167,11 @@ export default class SiteOrDomain extends Component {
 		);
 	}
 }
+
+export default connect(
+	( state ) => {
+		return {
+			isLoggedIn: !! getCurrentUserId( state )
+		};
+	}
+)( SiteOrDomain );
