@@ -19,29 +19,40 @@ import SectionHeader from 'components/section-header';
 import WrapSettingsForm from './wrap-settings-form';
 
 class AcceptedFilenames extends Component {
+	renderToggle = ( fieldName, fieldLabel ) => {
+		const {
+			fields: { pages },
+			handleAutosavingToggle,
+			isRequesting,
+			isSaving,
+			translate,
+		} = this.props;
+
+		return (
+			<FormToggle
+				checked={ !! pages && !! pages[ fieldName ] }
+				disabled={ isRequesting || isSaving }
+				onChange={ handleAutosavingToggle( fieldName ) }>
+				<span>
+					{ translate( '%(label)s)', { args: { label: fieldLabel } } ) }
+				</span>
+			</FormToggle>
+		);
+	}
+
 	render() {
 		const {
-			fields: {
-				archives,
-				author,
-				cache_acceptable_files,
-				cache_rejected_uri,
-				category,
-				feed,
-				frontpage,
-				home,
-				pages,
-				search,
-				single,
-				tag,
-			},
-			handleAutosavingToggle,
+			fields,
 			handleChange,
 			handleSubmitForm,
 			isRequesting,
 			isSaving,
 			translate,
 		} = this.props;
+		const {
+			cache_acceptable_files,
+			cache_rejected_uri,
+		} = fields;
 
 		return (
 			<div>
@@ -82,95 +93,16 @@ class AcceptedFilenames extends Component {
 						</FormSettingExplanation>
 
 						<FormFieldset>
-							<FormToggle
-								checked={ !! single }
-								disabled={ isRequesting || isSaving }
-								onChange={ handleAutosavingToggle( 'single' ) }>
-								<span>
-									{ translate( 'Single Posts (is_single)' ) }
-								</span>
-							</FormToggle>
-
-							<FormToggle
-								checked={ !! pages }
-								disabled={ isRequesting || isSaving }
-								onChange={ handleAutosavingToggle( 'pages' ) }>
-								<span>
-									{ translate( 'Pages (is_page)' ) }
-								</span>
-							</FormToggle>
-
-							<FormToggle
-								checked={ !! frontpage }
-								disabled={ isRequesting || isSaving }
-								onChange={ handleAutosavingToggle( 'frontpage' ) }>
-								<span>
-									{ translate( 'Front Page (is_front_page)' ) }
-								</span>
-							</FormToggle>
-
-							<FormToggle
-								checked={ !! home }
-								disabled={ isRequesting || isSaving }
-								onChange={ handleAutosavingToggle( 'home' ) }>
-								<span>
-									{ translate( 'Home (is_home)' ) }
-								</span>
-							</FormToggle>
-
-							<FormToggle
-								checked={ !! archives }
-								disabled={ isRequesting || isSaving }
-								onChange={ handleAutosavingToggle( 'archives' ) }>
-								<span>
-									{ translate( 'Archives (is_archive)' ) }
-								</span>
-							</FormToggle>
-
-							<FormToggle
-								checked={ !! tag }
-								disabled={ isRequesting || isSaving }
-								onChange={ handleAutosavingToggle( 'tag' ) }>
-								<span>
-									{ translate( 'Tags (is_tag)' ) }
-								</span>
-							</FormToggle>
-
-							<FormToggle
-								checked={ !! category }
-								disabled={ isRequesting || isSaving }
-								onChange={ handleAutosavingToggle( 'category' ) }>
-								<span>
-									{ translate( 'Category (is_category)' ) }
-								</span>
-							</FormToggle>
-
-							<FormToggle
-								checked={ !! feed }
-								disabled={ isRequesting || isSaving }
-								onChange={ handleAutosavingToggle( 'feed' ) }>
-								<span>
-									{ translate( 'Feeds (is_feed)' ) }
-								</span>
-							</FormToggle>
-
-							<FormToggle
-								checked={ !! search }
-								disabled={ isRequesting || isSaving }
-								onChange={ handleAutosavingToggle( 'search' ) }>
-								<span>
-									{ translate( 'Search Pages (is_search)' ) }
-								</span>
-							</FormToggle>
-
-							<FormToggle
-								checked={ !! author }
-								disabled={ isRequesting || isSaving }
-								onChange={ handleAutosavingToggle( 'author' ) }>
-								<span>
-									{ translate( 'Author Pages (is_author)' ) }
-								</span>
-							</FormToggle>
+							{ this.renderToggle( 'single', 'Single Posts (is_single)' ) }
+							{ this.renderToggle( 'pages', 'Pages (is_page)' ) }
+							{ this.renderToggle( 'frontpage', 'Front Page (is_front_page)' ) }
+							{ this.renderToggle( 'home', 'Home (is_home)' ) }
+							{ this.renderToggle( 'archives', 'Archives (is_archive)' ) }
+							{ this.renderToggle( 'tag', 'Tags (is_tag)' ) }
+							{ this.renderToggle( 'category', 'Category (is_category)' ) }
+							{ this.renderToggle( 'feed', 'Feeds (is_feed)' ) }
+							{ this.renderToggle( 'search', 'Search Pages (is_search)' ) }
+							{ this.renderToggle( 'author', 'Author Pages (is_author)' ) }
 						</FormFieldset>
 
 						<FormFieldset>
@@ -214,24 +146,11 @@ class AcceptedFilenames extends Component {
 }
 
 const getFormSettings = settings => {
-	const textSettings = pick( settings, [
+	return pick( settings, [
 		'cache_acceptable_files',
 		'cache_rejected_uri',
-	] );
-	const pages = pick( settings.pages, [
-		'archives',
-		'author',
-		'category',
-		'feed',
-		'frontpage',
-		'home',
 		'pages',
-		'search',
-		'single',
-		'tag',
 	] );
-
-	return { ...textSettings, ...pages };
 };
 
 export default WrapSettingsForm( getFormSettings )( AcceptedFilenames );
