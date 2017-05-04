@@ -14,6 +14,16 @@ import ProductCreate from './app/products/product-create';
 import Dashboard from './app/dashboard';
 import Stats from './app/stats';
 
+function addStorePage( storePage ) {
+	page( storePage.route, siteSelection, navigation, function( context ) {
+		renderWithReduxStore(
+			React.createElement( storePage.container, { } ),
+			document.getElementById( 'primary' ),
+			context.store
+		);
+	} );
+}
+
 export default function() {
 	const storePages = [
 		{
@@ -85,13 +95,7 @@ export default function() {
 
 	storePages.forEach( function( storePage ) {
 		if ( config.isEnabled( storePage.configKey ) ) {
-			page( storePage.route, siteSelection, navigation, function( context ) {
-				renderWithReduxStore(
-					React.createElement( storePage.container, { } ),
-					document.getElementById( 'primary' ),
-					context.store
-				);
-			} );
+			addStorePage( storePage );
 		}
 	} );
 }
