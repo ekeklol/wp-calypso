@@ -21,6 +21,10 @@ import cartStore from 'lib/cart/store';
 import { getSelectedSite, getSelectedSiteId } from 'state/ui/selectors';
 import { getCurrentUser } from 'state/current-user/selectors';
 
+// KILL IT WITH FIRE
+import sitesFactory from 'lib/sites-list';
+const sites = sitesFactory();
+
 const debug = debugFactory( 'calypso:state:middleware' );
 
 /**
@@ -45,6 +49,12 @@ if ( desktopEnabled ) {
  * providing an alternative to `sites.once()`.
  */
 let sitesListeners = [];
+
+const updateSelectedSiteForSitesList = ( dispatch, action, getState ) => {
+	const state = getState();
+	const selectedSiteId = getSelectedSiteId( state );
+	sites.select( selectedSiteId );
+};
 
 /**
  * Sets the selectedSite and siteCount for lib/analytics. This is used to
@@ -134,6 +144,7 @@ const handler = ( dispatch, action, getState ) => {
 		case SITES_UPDATE:
 			// Wait a tick for the reducer to update the state tree
 			setTimeout( () => {
+				updateSelectedSiteForSitesList( dispatch, action, getState );
 				updateSelectedSiteForCart( dispatch, action, getState );
 				if ( action.type === SITES_RECEIVE ) {
 					fireChangeListeners();
