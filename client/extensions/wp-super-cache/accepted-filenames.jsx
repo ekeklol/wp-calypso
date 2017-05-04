@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { pick } from 'lodash';
 
 /**
@@ -19,6 +19,22 @@ import SectionHeader from 'components/section-header';
 import WrapSettingsForm from './wrap-settings-form';
 
 class AcceptedFilenames extends Component {
+	static propTypes = {
+		fields: PropTypes.object,
+		handleChange: PropTypes.func.isRequired,
+		handleSubmitForm: PropTypes.func.isRequired,
+		isRequesting: PropTypes.bool,
+		isSaving: PropTypes.bool,
+		setAutosavingFieldValue: PropTypes.func.isRequired,
+		translate: PropTypes.func.isRequired,
+	};
+
+	static defaultProps = {
+		fields: {},
+		isRequesting: true,
+		isSaving: false,
+	};
+
 	renderToggle = ( fieldName, fieldLabel ) => {
 		const {
 			fields: { pages },
