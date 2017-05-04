@@ -22,7 +22,6 @@ class AcceptedFilenames extends Component {
 	renderToggle = ( fieldName, fieldLabel ) => {
 		const {
 			fields: { pages },
-			handleAutosavingToggle,
 			isRequesting,
 			isSaving,
 			translate,
@@ -32,13 +31,31 @@ class AcceptedFilenames extends Component {
 			<FormToggle
 				checked={ !! pages && !! pages[ fieldName ] }
 				disabled={ isRequesting || isSaving }
-				onChange={ handleAutosavingToggle( fieldName ) }>
+				onChange={ this.handleToggle( fieldName ) }>
 				<span>
 					{ translate( '%(label)s)', { args: { label: fieldLabel } } ) }
 				</span>
 			</FormToggle>
 		);
 	}
+
+	handleToggle = ( fieldName ) => {
+		return () => {
+			const {
+				fields,
+				setAutosavingFieldValue,
+			} = this.props;
+			const groupName = 'pages';
+			const groupFields = fields[ groupName ] ? fields[ groupName ] : {};
+
+			if ( ! ( fieldName in groupFields ) ) {
+				return;
+			}
+
+			groupFields[ fieldName ] = ! groupFields[ fieldName ];
+			setAutosavingFieldValue( groupName, groupFields );
+		};
+	};
 
 	render() {
 		const {
