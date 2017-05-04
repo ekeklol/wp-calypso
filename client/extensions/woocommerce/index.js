@@ -17,7 +17,7 @@ import Stats from './app/stats';
 function addStorePage( storePage ) {
 	page( storePage.route, siteSelection, navigation, function( context ) {
 		renderWithReduxStore(
-			React.createElement( storePage.container, { } ),
+			React.createElement( storePage.container, { className: 'woocommerce' } ),
 			document.getElementById( 'primary' ),
 			context.store
 		);
