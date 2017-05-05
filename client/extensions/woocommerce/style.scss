@@ -139,6 +139,29 @@
 			}
 		}
 
+		.products__product-manage-stock {
+			display: inline-flex;
+			flex-direction: row;
+			width: 100%;
+
+			.products__product-manage-stock-checkbox {
+				@include clear-fix();
+				padding: 12px;
+				background: $white;
+				border: 1px solid lighten( $gray, 20% );
+				display: flex;
+
+				input[type=checkbox] {
+					float: none;
+					margin: 0;
+				}
+			}
+
+			.form-text-input {
+				transform: translateX(-1px);
+			}
+		}
+
 		th, td {
 			padding: 8px;
 		}
