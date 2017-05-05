@@ -10,7 +10,7 @@ import { localize } from 'i18n-calypso';
  * Internal Dependencies
  */
 import ReaderAvatar from 'blocks/reader-avatar';
-import FollowButton from 'reader/follow-button';
+import FollowButton from 'reader/follow-button/redux';
 import { getStreamUrl } from 'reader/route';
 import EmailSettings from './email-settings';
 import {
