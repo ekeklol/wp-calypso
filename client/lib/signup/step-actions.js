@@ -1,13 +1,9 @@
 /**
  * External dependencies
  */
-import assign from 'lodash/assign';
-import defer from 'lodash/defer';
-import isEmpty from 'lodash/isEmpty';
-import pick from 'lodash/pick';
+import { assign, defer, isEmpty, isNull, omitBy, pick, startsWith } from 'lodash';
 import async from 'async';
 import { parse as parseURL } from 'url';
-import { startsWith } from 'lodash';
 import page from 'page';
 
 /**
@@ -55,7 +51,7 @@ function linkExistingSite( callback, dependencies, data ) {
 		siteSlug,
 	};
 
-	SignupCart.createCart( siteId, dependencies, error => {
+	SignupCart.createCart( siteId, omitBy( dependencies, isNull ), error => {
 		callback( error, providedDependencies );
 		page.redirect( `/checkout/${ siteSlug }` );
 	} );
