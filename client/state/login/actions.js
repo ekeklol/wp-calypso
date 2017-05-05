@@ -26,7 +26,18 @@ const loginErrorMessages = {
 	invalid_two_step_code: translate( 'Invalid verification code.' ),
 	invalid_username: translate( 'Invalid username or password.' ),
 	unknown: translate( 'Invalid username or password.' ),
-	account_unactivated: translate( 'This account has not been activated. Please check your email for an activation link.' )
+	account_unactivated: translate( 'This account has not been activated. Please check your email for an activation link.' ),
+};
+
+const loginErrorFields = {
+	empty_password: 'password',
+	empty_two_step_code: 'twoStepCode',
+	empty_username: 'usernameOrEmail',
+	incorrect_password: 'password',
+	invalid_two_step_code: 'twoStepCode',
+	invalid_username: 'usernameOrEmail',
+	unknown: 'global',
+	account_unactivated: 'global',
 };
 
 function getMessageFromHTTPError( error ) {
@@ -76,15 +87,16 @@ export const loginUser = ( usernameOrEmail, password, rememberMe ) => dispatch =
 				data: response.body && response.body.data,
 			} );
 		} ).catch( ( error ) => {
-			const errorMessage = getMessageFromHTTPError( error );
+			const message = getMessageFromHTTPError( error );
+			const field = loginErrorFields[ error ];
 
 			dispatch( {
 				type: LOGIN_REQUEST_FAILURE,
 				usernameOrEmail,
-				error: errorMessage,
+				error: { message, field },
 			} );
 
-			return Promise.reject( errorMessage );
+			return Promise.reject( message );
 		} );
 };
 
