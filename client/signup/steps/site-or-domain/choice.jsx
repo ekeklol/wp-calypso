@@ -14,7 +14,7 @@ export default class SiteOrDomainChoice extends Component {
 		event.preventDefault();
 
 		this.props.handleClickChoice( this.props.choice.type );
-	}
+	};
 
 	render() {
 		const { choice } = this.props;
