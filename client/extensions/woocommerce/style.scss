@@ -155,10 +155,10 @@
 					float: none;
 					margin: 0;
 				}
-			}
 
-			.form-text-input {
-				transform: translateX(-1px);
+				+ .form-text-input {
+					transform: translateX(-1px);
+				}
 			}
 		}
 
