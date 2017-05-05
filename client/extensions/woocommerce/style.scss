@@ -128,12 +128,12 @@
 				.products__product-dimensions-height {
 					&:hover,
 					&:focus {
-						z-index: 2;
+						transform: scale(1);
 					}
 
 					&:focus + .products__product-dimensions-width:hover,
 					&:focus + .form-text-input-with-affixes .products__product-dimensions-height:hover {
-						z-index: 1;
+						transform: none;
 					}
 				}
 			}
