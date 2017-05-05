@@ -11,9 +11,18 @@
 		font-weight: 500;
 		margin-bottom: 5px;
 	}
-	input{
-		margin-bottom: 20px;
+
+	input {
+		transition: none;
+
+		&:not( .is-error ) {
+			margin-bottom: 20px;
+		}
 	}
+}
+
+.login__form .form-input-validation {
+	margin-bottom: 5px;
 }
 
 .login__form-action {
