@@ -101,57 +101,63 @@ class ProductFormVariationRow extends React.Component {
 						size="4"
 					/>
 				</td>
-				<td className="products__product-dimensions-weight">
-					<div className="products__product-dimensions-input">
-						<FormTextInput
-							name="length"
-							placeholder={ translate( 'L' ) }
-							type="number"
-							value={ dimensions.length || '' }
-							onChange={ this.setDimension }
-							className="products__product-dimensions-length"
-						/>
-						<FormTextInput
-							name="width"
-							placeholder={ translate( 'W' ) }
-							type="number"
-							value={ dimensions.width || '' }
-							onChange={ this.setDimension }
-							className="products__product-dimensions-width"
-						/>
-						<FormTextInputWithAffixes
-							name="height"
-							placeholder={ translate( 'H' ) }
-							suffix="in"
-							type="number"
-							value={ dimensions.height || '' }
-							onChange={ this.setDimension }
-							className="products__product-dimensions-height"
-						/>
-					</div>
-					<div className="products__product-weight-input">
-						<FormTextInputWithAffixes
-							name="weight"
-							type="number"
-							suffix="g"
-							value={ variation.weight || '' }
-							onChange={ this.setWeight }
-							size="4"
-						/>
+				<td>
+					<div className="products__product-dimensions-weight">
+						<div className="products__product-dimensions-input">
+							<FormTextInput
+								name="length"
+								placeholder={ translate( 'L' ) }
+								type="number"
+								value={ dimensions.length || '' }
+								onChange={ this.setDimension }
+								className="products__product-dimensions-length"
+							/>
+							<FormTextInput
+								name="width"
+								placeholder={ translate( 'W' ) }
+								type="number"
+								value={ dimensions.width || '' }
+								onChange={ this.setDimension }
+								className="products__product-dimensions-width"
+							/>
+							<FormTextInputWithAffixes
+								name="height"
+								placeholder={ translate( 'H' ) }
+								suffix="in"
+								type="number"
+								value={ dimensions.height || '' }
+								onChange={ this.setDimension }
+								className="products__product-dimensions-height"
+							/>
+						</div>
+						<div className="products__product-weight-input">
+							<FormTextInputWithAffixes
+								name="weight"
+								type="number"
+								suffix="g"
+								value={ variation.weight || '' }
+								onChange={ this.setWeight }
+								size="4"
+							/>
+						</div>
 					</div>
 				</td>
 				<td>
-					{ allVariationsRow && (
-						<FormCheckbox checked={ Boolean( variation.manage_stock ) } onChange={ this.toggleStock } />
-					) }
-					{ manageStock && (
-						<FormTextInput
-							name="stock_quantity"
-							value={ variation.stock_quantity || '' }
-							type="number"
-							onChange={ this.setStockQuantity }
-						/>
-					) }
+					<div className="products__product-manage-stock">
+						{ allVariationsRow && (
+							<div className="products__product-manage-stock-checkbox">
+								<FormCheckbox checked={ Boolean( variation.manage_stock ) } onChange={ this.toggleStock } />
+							</div>
+						) }
+						{ manageStock && (
+							<FormTextInput
+								name="stock_quantity"
+								value={ variation.stock_quantity || '' }
+								type="number"
+								onChange={ this.setStockQuantity }
+							/>
+						) }
+					</div>
 				</td>
 				<td>
 					{ ! allVariationsRow && (
