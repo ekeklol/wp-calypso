@@ -96,7 +96,7 @@ export const loginUser = ( usernameOrEmail, password, rememberMe ) => dispatch =
 				error: { message, field },
 			} );
 
-			return Promise.reject( message );
+			return Promise.reject( { message, field } );
 		} );
 };
 
