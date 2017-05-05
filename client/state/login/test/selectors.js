@@ -10,8 +10,10 @@ import {
 	getTwoFactorAuthRequestError,
 	getTwoFactorUserId,
 	getTwoFactorAuthNonce,
+	getRequestError,
 	isTwoFactorEnabled,
 	isRequestingTwoFactorAuth,
+	isRequesting,
 } from '../selectors';
 
 describe( 'selectors', () => {
@@ -77,6 +79,28 @@ describe( 'selectors', () => {
 		} );
 	} );
 
+	describe( 'getRequestError', () => {
+		it( 'should return null by default', () => {
+			expect( getRequestError( undefined ) ).to.be.null;
+		} );
+
+		it( 'should return null if there is no error', () => {
+			expect( getRequestError( {
+				login: {
+					requestError: null
+				}
+			} ) ).to.be.null;
+		} );
+
+		it( 'should return an error for the request if there is an error', () => {
+			expect( getRequestError( {
+				login: {
+					requestError: 'some error'
+				}
+			} ) ).to.equal( 'some error' );
+		} );
+	} );
+
 	describe( 'getTwoFactorAuthRequestError', () => {
 		it( 'should return null by default', () => {
 			expect( getTwoFactorAuthRequestError( undefined ) ).to.be.null;
@@ -96,6 +120,17 @@ describe( 'selectors', () => {
 					twoFactorAuthRequestError: 'some error'
 				}
 			} ) ).to.equal( 'some error' );
+		} );
+	} );
+
+	describe( 'isRequesting()', () => {
+		it( 'should return false if there is no information yet', () => {
+			expect( isRequesting( undefined ) ).to.be.false;
+		} );
+
+		it( 'should return true/false depending on the state of the request', () => {
+			expect( isRequesting( { login: { isRequesting: false } } ) ).to.be.false;
+			expect( isRequesting( { login: { isRequesting: true } } ) ).to.be.true;
 		} );
 	} );
 

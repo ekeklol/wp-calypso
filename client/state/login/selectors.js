@@ -74,3 +74,23 @@ export const isRequestingTwoFactorAuth = ( state ) => {
 export const getTwoFactorAuthRequestError = ( state ) => {
 	return get( state, 'login.twoFactorAuthRequestError', null );
 };
+
+/**
+ * Determines whether a login request is in-progress.
+ *
+ * @param  {Object}   state  Global state tree
+ * @return {Boolean}         Whether a login request is in-progress.
+ */
+export const isRequesting = ( state ) => {
+	return get( state, 'login.isRequesting', false );
+};
+
+/**
+ * Returns the error for a login request.
+ *
+ * @param  {Object}   state  Global state tree
+ * @return {?String}         Error for the request.
+ */
+export const getRequestError = ( state ) => {
+	return get( state, 'login.requestError', null );
+};
