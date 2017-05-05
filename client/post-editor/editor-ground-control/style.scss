@@ -107,6 +107,11 @@
 	border-radius: 4px 0 0 4px;
 	flex-grow: 1;
 	padding: 5px 14px 7px;
+
+	&[disabled],
+	&:disabled {
+		border-color: darken( $blue-medium, 8% );
+	}
 }
 
 .editor-ground-control__time-button {
