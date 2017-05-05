@@ -1580,7 +1580,7 @@
       }
     },
     "eslint-plugin-wpcalypso": {
-      "version": "3.1.1",
+      "version": "3.2.0",
       "dev": true
     },
     "esmangle-evaluator": {
@@ -2232,7 +2232,7 @@
       "version": "2.0.1"
     },
     "is-integer": {
-      "version": "1.0.6"
+      "version": "1.0.7"
     },
     "is-lower-case": {
       "version": "1.1.3"
