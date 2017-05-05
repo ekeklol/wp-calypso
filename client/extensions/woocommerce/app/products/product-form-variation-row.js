@@ -129,15 +129,16 @@ class ProductFormVariationRow extends React.Component {
 							className="products__product-dimensions-height"
 						/>
 					</div>
-					<FormTextInputWithAffixes
-						name="weight"
-						type="number"
-						suffix="g"
-						value={ variation.weight || '' }
-						onChange={ this.setWeight }
-						size="4"
-						className="products__product-weight-input"
-					/>
+					<div className="products__product-weight-input">
+						<FormTextInputWithAffixes
+							name="weight"
+							type="number"
+							suffix="g"
+							value={ variation.weight || '' }
+							onChange={ this.setWeight }
+							size="4"
+						/>
+					</div>
 				</td>
 				<td>
 					{ allVariationsRow && (

@@ -111,6 +111,15 @@
 			background: lighten( $gray, 30% );
 		}
 
+		.products__product-dimensions-weight {
+			display: flex;
+			justify-content: flex-start;
+
+			.products__product-dimensions-input {
+				margin-right: 8px;
+			}
+		}
+
 		th, td {
 			padding: 8px;
 		}
