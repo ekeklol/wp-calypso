@@ -3,6 +3,7 @@
  */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { localize } from 'i18n-calypso';
 
 /**
  * Internal dependencies
@@ -52,12 +53,14 @@ class SiteOrDomain extends Component {
 	}
 
 	getChoices() {
+		const { translate } = this.props;
+
 		const choices = [
 			{
 				type: 'page',
-				label: 'New site',
+				label: translate( 'New site' ),
 				image: <NewSiteImage />,
-				description: 'Choose a theme, customize, and launch your site. Free domain included with all plans.'
+				description: translate( 'Choose a theme, customize, and launch your site. Free domain included with all plans.' )
 			}
 		];
 
@@ -65,8 +68,9 @@ class SiteOrDomain extends Component {
 			choices.push(
 				{
 					type: 'existing-site',
-					label: 'Link to an existing site',
-					image: <NewSiteImage />
+					label: translate( 'Existing WordPress.com site' ),
+					image: <NewSiteImage />,
+					description: translate( 'Use with a site you already started. Free domain included with all plans.' )
 				}
 			);
 		}
@@ -74,9 +78,9 @@ class SiteOrDomain extends Component {
 		choices.push(
 			{
 				type: 'domain',
-				label: 'Just buy a domain',
+				label: translate( 'Just buy a domain' ),
 				image: <DomainImage />,
-				description: 'Show a "coming soon" notice on your domain. Add a site later.'
+				description: translate( 'Show a "coming soon" notice on your domain. Add a site later.' )
 			}
 		);
 
@@ -191,4 +195,4 @@ export default connect(
 			isLoggedIn: !! getCurrentUserId( state )
 		};
 	}
-)( SiteOrDomain );
+)( localize( SiteOrDomain ) );
