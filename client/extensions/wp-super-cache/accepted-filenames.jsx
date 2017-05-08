@@ -25,7 +25,7 @@ class AcceptedFilenames extends Component {
 		handleSubmitForm: PropTypes.func.isRequired,
 		isRequesting: PropTypes.bool,
 		isSaving: PropTypes.bool,
-		setAutosavingFieldValue: PropTypes.func.isRequired,
+		setFieldValue: PropTypes.func.isRequired,
 		translate: PropTypes.func.isRequired,
 	};
 
@@ -59,7 +59,7 @@ class AcceptedFilenames extends Component {
 		return () => {
 			const {
 				fields,
-				setAutosavingFieldValue,
+				setFieldValue,
 			} = this.props;
 			const groupName = 'pages';
 			const groupFields = fields[ groupName ] ? fields[ groupName ] : {};
@@ -69,7 +69,7 @@ class AcceptedFilenames extends Component {
 			}
 
 			groupFields[ fieldName ] = ! groupFields[ fieldName ];
-			setAutosavingFieldValue( groupName, groupFields );
+			setFieldValue( groupName, groupFields );
 		};
 	};
 
