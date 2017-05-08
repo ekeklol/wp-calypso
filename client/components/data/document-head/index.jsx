@@ -12,8 +12,8 @@ import isEqual from 'lodash/isEqual';
 import { getDocumentHeadFormattedTitle } from 'state/document-head/selectors';
 import {
 	setDocumentHeadTitle as setTitle,
-	addDocumentHeadLink as addLink,
-	addDocumentHeadMeta as addMeta,
+	setDocumentHeadLink as setLink,
+	setDocumentHeadMeta as setMeta,
 	setDocumentHeadUnreadCount as setUnreadCount
 } from 'state/document-head/actions';
 
@@ -33,11 +33,11 @@ class DocumentHead extends Component {
 		}
 
 		each( this.props.link, ( link ) => {
-			this.props.addLink( link );
+			this.props.setLink( link );
 		} );
 
 		each( this.props.meta, ( meta ) => {
-			this.props.addMeta( meta );
+			this.props.setMeta( meta );
 		} );
 	}
 
@@ -57,13 +57,13 @@ class DocumentHead extends Component {
 
 		if ( ! isEqual( this.props.link, nextProps.link ) ) {
 			each( nextProps.link, ( link ) => {
-				this.props.addLink( link );
+				this.props.setLink( link );
 			} );
 		}
 
 		if ( ! isEqual( this.props.meta, nextProps.meta ) ) {
 			each( nextProps.meta, ( meta ) => {
-				this.props.addMeta( meta );
+				this.props.setMeta( meta );
 			} );
 		}
 
@@ -83,8 +83,8 @@ DocumentHead.propTypes = {
 	link: PropTypes.array,
 	meta: PropTypes.array,
 	setTitle: PropTypes.func.isRequired,
-	addLink: PropTypes.func.isRequired,
-	addMeta: PropTypes.func.isRequired,
+	setLink: PropTypes.func.isRequired,
+	setMeta: PropTypes.func.isRequired,
 	setUnreadCount: PropTypes.func.isRequired
 };
 
@@ -94,8 +94,8 @@ export default connect(
 	} ),
 	{
 		setTitle,
-		addLink,
-		addMeta,
+		setLink,
+		setMeta,
 		setUnreadCount
 	}
 )( DocumentHead );

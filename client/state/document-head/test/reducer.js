@@ -8,8 +8,8 @@ import deepFreeze from 'deep-freeze';
  * Internal dependencies
  */
 import {
-	DOCUMENT_HEAD_LINK_ADD,
-	DOCUMENT_HEAD_META_ADD,
+	DOCUMENT_HEAD_LINK_SET,
+	DOCUMENT_HEAD_META_SET,
 	DOCUMENT_HEAD_TITLE_SET,
 	DOCUMENT_HEAD_UNREAD_COUNT_SET,
 } from 'state/action-types';
@@ -60,7 +60,7 @@ describe( 'reducer', () => {
 		it( 'should add a new meta tag', () => {
 			const state = deepFreeze( [ { content: 'some content', type: 'some type' } ] );
 			const newState = meta( state, {
-				type: DOCUMENT_HEAD_META_ADD,
+				type: DOCUMENT_HEAD_META_SET,
 				meta: {
 					content: 'another content',
 					type: 'another type'
@@ -86,7 +86,7 @@ describe( 'reducer', () => {
 		it( 'should add a new link tag', () => {
 			const state = deepFreeze( [ { rel: 'some-rel', href: 'https://wordpress.org' } ] );
 			const newState = link( state, {
-				type: DOCUMENT_HEAD_LINK_ADD,
+				type: DOCUMENT_HEAD_LINK_SET,
 				link: {
 					rel: 'another-rel',
 					href: 'https://automattic.com'
